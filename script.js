@@ -1,9 +1,14 @@
-var salesData=[{State:"AS", Qty:2},{State:"DF", Qty:150}, {State:"GT", Qty:63},{State:"sr", Qty:8}]
-
 
 fetch('https://covid2020-api.herokuapp.com/infectedByState').then(function(res){
     return res.json();
 }).then(function(data){
+    // var selection = document.querySelector('select');
+    var selection1 = 1;
+    console.log(selection1);
+    // selection.addEventListener('change', () =>{
+    // selection1 = selection.selectedIndex;
+    // console.log(selection1)
+    // })
         console.log(data[0].Estado);
         var svg=d3.select('#svg');
 
@@ -17,14 +22,42 @@ fetch('https://covid2020-api.herokuapp.com/infectedByState').then(function(res){
 
     var yScale = d3.scaleLinear()
         .domain([0,d3.max(data,function(d,i){
-            if(i>10){
-            return data[i].Cantidad}
+            if(selection1==1){
+                if(i<7){
+                    return d.Cantidad;
+                }
+            }else if(selection1==2){
+                if(i>=7 && i<15){
+                    return d.Cantidad;
+                }
+            }else if(selection1==3){
+                if(i>=15){
+                    return d.Cantidad;
+                }
+            }else{
+                return d.Cantidad;    
+            } 
         })])
         .range([chartArea.height,0]).nice();
 
     var xScale = d3.scaleBand()
-        .domain(data.map(function(d,i){if(i>10){
-            return data[i].Estado}}
+        .domain(data.map(function(d,i){
+            if(selection1==1){
+                if(i<7){
+                    return d.Estado;
+                }
+            }else if(selection1==2){
+                if(i>=7 && i<15){
+                    return data[i].Estado;
+                }
+            }else if(selection1==3){
+                if(i>=15){
+                    return data[i].Estado;
+                }
+            }else {
+                return data[i].Estado;    
+            }
+        }
             ))
         .range([0,chartArea.width])
         .padding(0.2);
@@ -66,16 +99,55 @@ fetch('https://covid2020-api.herokuapp.com/infectedByState').then(function(res){
         .append("rect")
         .attr("width",xScale.bandwidth())
         .attr("height",function(d,i) {
-            if(i>10){
-                return chartArea.height-yScale(data[i].Cantidad);
-            }
-            // return chartArea.height-yScale(data[i].Cantidad);
+            if(selection1==1){
+                if(selection1==1){
+                    if(i<7){
+                        return chartArea.height-yScale(d.Cantidad);
+                    }
+                }else if(selection1==2){
+                    if(i>=7 && i<15){
+                        return chartArea.height-yScale(d.Cantidad);
+                    }
+                }else if(selection1==3){
+                    if(i>=15){
+                        return chartArea.height-yScale(d.Cantidad);
+                    }
+                }else {
+                    return chartArea.height-yScale(d.Cantidad);    
+                }
+        }
+            // return chartArea.height-yScale(d.Cantidad);
         })
         .attr("x",function(d,i){
-            return xScale(data[i].Estado);
+            if(selection1==1){
+                if(i<7){
+                    return xScale(data[i].Estado);
+                }
+            }else if(selection1==2){
+                if(i>=7 && i<15){
+                    return xScale(data[i].Estado);
+                }
+            }else if(selection1==3){
+                if(i>=15){
+                    return xScale(data[i].Estado);
+                }
+            }else{
+                return xScale(data[i].Estado);    
+            }
         })
         .attr("y",function(d,i){
-            return yScale(data[i].Cantidad);
+            if(selection1==1){
+                if(i>7){
+                    return yScale(data[i].Cantidad);                }
+            }else if(selection1==2){
+                if(i>=7 && i<15){
+                    return yScale(data[i].Cantidad);                }
+            }else if(selection1==3){
+                if(i>=15){
+                    return yScale(data[i].Cantidad);                }
+            }else {
+                return yScale(data[i].Cantidad);    
+            }
         })
         
 
