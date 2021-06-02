@@ -291,7 +291,7 @@ fetch('http://covid2020-api.herokuapp.com/asthmaByAge').then(function(res){
         var selection = document.querySelector('select'); 
         var s = 0;
         console.log(data[0].Edad);
-        var svg=d3.select('#svg');
+        var svg=d3.select('#svg3');
 
     var padding={top:20,right:30,bottom:40,left:100};
 
@@ -627,7 +627,5 @@ fetch('http://covid2020-api.herokuapp.com/neumoniaByAge').then(function(res){
         selection.addEventListener('change',()=>{
         updateG(selection.selectedIndex);
         });
-
-
 })
 
