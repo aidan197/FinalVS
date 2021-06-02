@@ -6,11 +6,6 @@ fetch('https://covid2020-api.herokuapp.com/infectedByState').then(function(res){
     var s = 0;
     console.log(s);
 
-    selection.addEventListener('change', () =>{
-    selection1 = selection.selectedIndex;
-    })
-    
-    console.log(data[0].Estado);
     var svg=d3.select('#svg');
 
     var padding={top:20,right:30,bottom:40,left:80};
@@ -107,9 +102,12 @@ fetch('https://covid2020-api.herokuapp.com/infectedByState').then(function(res){
         })
         .attr("y",function(d,i){
                 return yScale(d.Cantidad);    
-        })
-        
+        }) 
 
-
+    selection.addEventListener('change', () =>{
+    selection1 = selection.options[selection.selectedIndex].text;
+    console.log(data[0].Estado);
+    })
+    
 })
 
