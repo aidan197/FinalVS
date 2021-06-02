@@ -1,6 +1,9 @@
 rect{
     fill : darkblue
 }
+circle{
+    fill : darkblue
+}
 text {
     font-size: 1.6em;
     font-family: sans-serif;
